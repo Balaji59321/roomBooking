@@ -15,7 +15,17 @@ app.use("/", (req, res, next) => {
   next();
 });
 
+// room api
 app.use("/room", routePath);
+
+// book a room api
 app.use("/book", roomBook);
+
+// error middleware
+app.use((err, req, res, next) => {
+  res.send({
+    message: "Something went wrong" + err,
+  });
+});
 
 app.listen(process.env.PORT || 3010);
