@@ -1,16 +1,18 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const dotenv = require("dotenv");
 const mongo = require("./db");
 const routePath = require("./modules/room");
 const roomBook = require("./modules/roomBook");
-const dotenv = require("dotenv");
+
 dotenv.config();
 mongo.connect();
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/", (req, res, next) => {
-  //   res.send("hello");
   console.log("middleware");
   next();
 });
@@ -28,4 +30,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(process.env.PORT || 3010);
+// server message
+app.listen(process.env.PORT || 3010, () => {
+  console.log("Server Started Successfully");
+});

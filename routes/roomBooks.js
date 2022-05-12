@@ -1,8 +1,10 @@
 const mongo = require("./../db");
+console.log(mongo);
 
 // Methods to book a room
 module.exports.bookRoom = async (req, res, next) => {
   const roomId = req.body.roomId;
+  console.log(mongo);
   try {
     const room = await mongo.currentDB
       .collection("room")
@@ -14,6 +16,7 @@ module.exports.bookRoom = async (req, res, next) => {
     //  if room is not yet booked accept data and time passed by customer api without validation
     if (Object.keys(bookedCopy).length === 0) {
       let obj = {};
+
       obj[req.body.date] = [[req.body.startTime, req.body.endTime]];
       //   console.log(obj);
       const resp = await mongo.currentDB.collection("bookRoom").insertOne({
